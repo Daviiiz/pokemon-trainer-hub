@@ -7,7 +7,9 @@ import {
 } from "../data/pokemonData.js";
 
 export async function obtenerPokemons(req, res) {
-  const pokemons = await obtenerTodosPokemons();
+  const buscar = req.query.buscar || "";
+
+  const pokemons = await obtenerTodosPokemons(buscar);
 
   res.json(pokemons);
 }

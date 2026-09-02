@@ -1,7 +1,10 @@
 import db from "../config/db.js";
 
-export async function obtenerTodosPokemons() {
-  const [filas] = await db.query("SELECT * FROM pokemon");
+export async function obtenerTodosPokemons(buscar = "") {
+  const [filas] = await db.execute(
+    "SELECT * FROM pokemon WHERE nombre LIKE ?",
+    [`%${buscar}%`]
+  );
 
   return filas;
 }
