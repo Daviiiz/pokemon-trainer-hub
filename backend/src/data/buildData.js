@@ -1,6 +1,15 @@
 import db from "../config/db.js";
 
-export async function obtenerTodasBuilds() {
+export async function obtenerTodasBuilds(pokemonId = null) {
+  if (pokemonId) {
+    const [filas] = await db.execute(
+      "SELECT * FROM builds WHERE pokemon_id = ?",
+      [pokemonId]
+    );
+
+    return filas;
+  }
+
   const [filas] = await db.query("SELECT * FROM builds");
 
   return filas;

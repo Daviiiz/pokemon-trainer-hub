@@ -7,7 +7,17 @@ import {
 } from "../data/buildData.js";
 
 export async function obtenerBuilds(req, res) {
-  const builds = await obtenerTodasBuilds();
+  const pokemonId = req.query.pokemon_id
+    ? Number(req.query.pokemon_id)
+    : null;
+
+  if (req.query.pokemon_id && Number.isNaN(pokemonId)) {
+    return res.status(400).json({
+      mensaje: "pokemon_id debe ser un número.",
+    });
+  }
+
+  const builds = await obtenerTodasBuilds(pokemonId);
 
   res.json(builds);
 }
