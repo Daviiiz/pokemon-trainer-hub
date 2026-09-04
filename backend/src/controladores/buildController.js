@@ -3,6 +3,7 @@ import {
   obtenerBuildPorIdData,
   crearBuildData,
   actualizarBuildData,
+  eliminarBuildData,
 } from "../data/buildData.js";
 
 export async function obtenerBuilds(req, res) {
@@ -129,5 +130,22 @@ export async function actualizarBuild(req, res) {
   res.json({
     id,
     ...buildActualizada,
+  });
+}
+
+export async function eliminarBuild(req, res) {
+  const id = Number(req.params.id);
+
+  const filasEliminadas = await eliminarBuildData(id);
+
+  if (filasEliminadas === 0) {
+    return res.status(404).json({
+      mensaje: "Build no encontrada.",
+    });
+  }
+
+  res.json({
+    mensaje: "Build eliminada correctamente.",
+    id,
   });
 }
