@@ -50,10 +50,11 @@ export default function PokemonSearch() {
   const hayBusqueda = busqueda.trim().length > 0;
 
   return (
-    <section>
+    <section className="pokemon-search">
       <h2>Buscar Pokémon</h2>
 
       <input
+        className="pokemon-search__input"
         type="text"
         placeholder="Escribe un Pokémon..."
         value={busqueda}
@@ -67,7 +68,7 @@ export default function PokemonSearch() {
       ) : !hayBusqueda ? (
         <p>Escribe el nombre de un Pokémon para comenzar.</p>
       ) : hayResultados ? (
-        <div>
+        <div className="pokemon-grid">
           {pokemonsFiltrados.map((pokemon) => (
             <PokemonCard
               key={pokemon.id}

@@ -39,37 +39,62 @@ export default function BuildList() {
   }
 
   return (
-    <section>
+    <section className="build-grid">
       {builds.map((build) => (
-        <article key={build.id}>
-          <h2>{build.titulo}</h2>
+        <article
+          className="build-card"
+          key={build.id}
+        >
+          <div className="build-card__header">
+            <p className="build-card__pokemon">
+              Pokémon #{build.pokemon_id}
+            </p>
 
-          <p>
-            <strong>Pokémon:</strong> #{build.pokemon_id}
-          </p>
+            <h2 className="build-card__title">
+              {build.titulo}
+            </h2>
 
-          <p>
-            <strong>Rol:</strong> {build.rol}
-          </p>
+            <p className="build-card__role">
+              {build.rol}
+            </p>
+          </div>
 
-          <p>
-            <strong>Objeto:</strong> {build.objeto}
-          </p>
+          <div className="build-card__content">
+            <p>
+              <strong>Objeto:</strong> {build.objeto}
+            </p>
 
-          <h3>Movimientos</h3>
+            <h3>Movimientos</h3>
 
-          <ul>
-            <li>{build.movimiento_1}</li>
-            <li>{build.movimiento_2}</li>
-            <li>{build.movimiento_3}</li>
-            <li>{build.movimiento_4}</li>
-          </ul>
+            <ul className="build-card__moves">
+              <li>{build.movimiento_1}</li>
+              <li>{build.movimiento_2}</li>
+              <li>{build.movimiento_3}</li>
+              <li>{build.movimiento_4}</li>
+            </ul>
 
-          {build.descripcion && <p>{build.descripcion}</p>}
+            {build.descripcion && (
+              <p className="build-card__description">
+                {build.descripcion}
+              </p>
+            )}
+          </div>
 
-          <a href={`/pokemon/${build.pokemon_id}`}>
-            Ver Pokémon
-          </a>
+          <div className="build-card__actions">
+            <a
+              className="build-card__button"
+              href={`/builds/${build.id}`}
+            >
+              Ver Build
+            </a>
+
+            <a
+              className="build-card__secondary"
+              href={`/pokemon/${build.pokemon_id}`}
+            >
+              Ver Pokémon
+            </a>
+          </div>
         </article>
       ))}
     </section>

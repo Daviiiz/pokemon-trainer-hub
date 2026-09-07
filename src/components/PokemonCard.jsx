@@ -5,9 +5,13 @@ export default function PokemonCard({ pokemon }) {
     pokemon.nombre.charAt(0).toUpperCase() + pokemon.nombre.slice(1);
 
   return (
-    <article>
-      <a href={`/pokemon/${pokemon.id}`}>
+    <article className="pokemon-card">
+      <a
+        className="pokemon-card__link"
+        href={`/pokemon/${pokemon.id}`}
+      >
         <img
+          className="pokemon-card__image"
           src={imagenUrl}
           alt={`Imagen de ${pokemon.nombre}`}
           width="180"
@@ -15,8 +19,13 @@ export default function PokemonCard({ pokemon }) {
           loading="lazy"
         />
 
-        <h3>{nombreFormateado}</h3>
-        <p>#{pokemon.id}</p>
+        <h3 className="pokemon-card__name">
+          {nombreFormateado}
+        </h3>
+
+        <p className="pokemon-card__id">
+          #{pokemon.id}
+        </p>
       </a>
     </article>
   );
