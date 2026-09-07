@@ -36,6 +36,12 @@ const respuestaPokemon = await fetch(
 
 const pokemon = await respuestaPokemon.json();
 
+const respuestaBuilds = await fetch(
+  `${import.meta.env.PUBLIC_API_URL}/builds?pokemon_id=${id}`
+);
+
+const builds = await respuestaBuilds.json();
+
 const nombreFormateado =
   pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
 
@@ -84,6 +90,7 @@ const pesoKilos = pokemon.weight / 10;
         <strong>Peso:</strong>
         {pesoKilos} kg
       </p>
+      <pre>{JSON.stringify(builds, null, 2)}</pre>
     </main>
   </body>
 </html>
