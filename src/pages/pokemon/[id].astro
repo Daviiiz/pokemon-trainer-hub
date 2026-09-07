@@ -1,4 +1,6 @@
 ---
+import Layout from "../../layouts/Layout.astro";
+
 type PokemonListado = {
   url: string;
 };
@@ -69,76 +71,67 @@ const alturaMetros = pokemon.height / 10;
 const pesoKilos = pokemon.weight / 10;
 ---
 
-<html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>{nombreFormateado} | Pokémon Trainer Hub</title>
-  </head>
+<Layout title={nombreFormateado}>
+  <h1>{nombreFormateado}</h1>
 
-  <body>
-    <main>
-      <h1>{nombreFormateado}</h1>
+  <p>#{pokemon.id}</p>
 
-      <p>#{pokemon.id}</p>
+  <img
+    src={imagen}
+    alt={`Imagen de ${nombreFormateado}`}
+    width="300"
+    height="300"
+  />
 
-      <img
-        src={imagen}
-        alt={`Imagen de ${nombreFormateado}`}
-        width="300"
-        height="300"
-      />
+  <p>
+    <strong>Tipo:</strong>
+    {tipos.join(", ")}
+  </p>
 
-      <p>
-        <strong>Tipo:</strong>
-        {tipos.join(", ")}
-      </p>
+  <p>
+    <strong>Altura:</strong>
+    {alturaMetros} m
+  </p>
 
-      <p>
-        <strong>Altura:</strong>
-        {alturaMetros} m
-      </p>
+  <p>
+    <strong>Peso:</strong>
+    {pesoKilos} kg
+  </p>
 
-      <p>
-        <strong>Peso:</strong>
-        {pesoKilos} kg
-      </p>
-      <section>
-  <h2>Estrategias destacadas</h2>
+  <section>
+    <h2>Estrategias destacadas</h2>
 
-  {builds.length > 0 ? (
-    builds.map((build) => (
-      <article>
-        <h3>{build.titulo}</h3>
+    {builds.length > 0 ? (
+      builds.map((build) => (
+        <article>
+          <h3>{build.titulo}</h3>
 
-        <p>
-          <strong>Rol:</strong>
-          {build.rol}
-        </p>
+          <p>
+            <strong>Rol:</strong>
+            {build.rol}
+          </p>
 
-        <p>
-          <strong>Objeto:</strong>
-          {build.objeto}
-        </p>
+          <p>
+            <strong>Objeto:</strong>
+            {build.objeto}
+          </p>
 
-        <h4>Movimientos</h4>
+          <h4>Movimientos</h4>
 
-        <ul>
-          <li>{build.movimiento_1}</li>
-          <li>{build.movimiento_2}</li>
-          <li>{build.movimiento_3}</li>
-          <li>{build.movimiento_4}</li>
-        </ul>
+          <ul>
+            <li>{build.movimiento_1}</li>
+            <li>{build.movimiento_2}</li>
+            <li>{build.movimiento_3}</li>
+            <li>{build.movimiento_4}</li>
+          </ul>
 
-        {build.descripcion && (
-          <p>{build.descripcion}</p>
-        )}
-      </article>
-    ))
-  ) : (
-    <p>Este Pokémon todavía no tiene estrategias destacadas.</p>
-  )}
-</section>
-    </main>
-  </body>
-</html>
+          {build.descripcion && (
+            <p>{build.descripcion}</p>
+          )}
+        </article>
+      ))
+    ) : (
+      <p>Este Pokémon todavía no tiene estrategias destacadas.</p>
+    )}
+  </section>
+</Layout>

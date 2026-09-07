@@ -1,0 +1,35 @@
+---
+type Props = {
+  title: string;
+};
+
+const { title } = Astro.props;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title} | Pokémon Trainer Hub</title>
+  </head>
+
+  <body>
+    <header>
+      <a href="/">Pokémon Trainer Hub</a>
+
+      <nav aria-label="Navegación principal">
+        <a href="/">Inicio</a>
+        <a href="/pokedex">Pokédex</a>
+        <a href="/builds">Builds</a>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer>
+      <p>Pokémon Trainer Hub</p>
+    </footer>
+  </body>
+</html>

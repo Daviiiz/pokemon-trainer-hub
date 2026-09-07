@@ -1,23 +1,14 @@
 ---
+import Layout from "../layouts/Layout.astro";
 import BuildList from "../components/BuildList.jsx";
 ---
 
-<html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Builds | Pokémon Trainer Hub</title>
-  </head>
+<Layout title="Builds">
+  <h1>Builds destacadas</h1>
 
-  <body>
-    <main>
-      <h1>Builds destacadas</h1>
+  <p>
+    Consulta estrategias competitivas creadas para distintos Pokémon.
+  </p>
 
-      <p>
-        Consulta estrategias competitivas creadas para distintos Pokémon.
-      </p>
-
-      <BuildList client:load />
-    </main>
-  </body>
-</html>
+  <BuildList client:load />
+</Layout>
