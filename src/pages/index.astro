@@ -1,8 +1,3 @@
----
-import Contador from "../components/Contador.jsx";
-import PokemonSearch from "../components/PokemonSearch.jsx";
----
-
 <html lang="es">
   <head>
     <meta charset="utf-8" />
@@ -11,10 +6,17 @@ import PokemonSearch from "../components/PokemonSearch.jsx";
   </head>
 
   <body>
-    <h1>Pokémon Trainer Hub</h1>
+    <main>
+      <h1>Pokémon Trainer Hub</h1>
 
-    <Contador client:load />
+      <p>
+        Explora Pokémon y consulta estrategias competitivas destacadas.
+      </p>
 
-    <PokemonSearch client:load />
+      <nav>
+        <a href="/pokedex">Ir a la Pokédex</a>
+        <a href="/builds">Ver Builds destacadas</a>
+      </nav>
+    </main>
   </body>
 </html>
