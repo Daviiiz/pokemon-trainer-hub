@@ -1,4 +1,14 @@
 ---
+type PokemonListado = {
+  url: string;
+};
+
+type PokemonTipo = {
+  type: {
+    name: string;
+  };
+};
+
 export async function getStaticPaths() {
   const respuesta = await fetch(
     "https://pokeapi.co/api/v2/pokemon?limit=1351"
@@ -6,7 +16,7 @@ export async function getStaticPaths() {
 
   const datos = await respuesta.json();
 
-  return datos.results.map((pokemon) => {
+  return datos.results.map((pokemon: PokemonListado) => {
     const partesUrl = pokemon.url.split("/").filter(Boolean);
     const id = partesUrl[partesUrl.length - 1];
 
@@ -19,18 +29,61 @@ export async function getStaticPaths() {
 }
 
 const { id } = Astro.params;
+
+const respuestaPokemon = await fetch(
+  `https://pokeapi.co/api/v2/pokemon/${id}`
+);
+
+const pokemon = await respuestaPokemon.json();
+
+const nombreFormateado =
+  pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+
+const tipos = pokemon.types.map(
+  (tipo: PokemonTipo) => tipo.type.name
+);
+
+const imagen =
+  pokemon.sprites.other["official-artwork"].front_default;
+
+const alturaMetros = pokemon.height / 10;
+const pesoKilos = pokemon.weight / 10;
 ---
 
 <html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>Detalle Pokémon</title>
+    <title>{nombreFormateado} | Pokémon Trainer Hub</title>
   </head>
 
   <body>
-    <h1>Detalle Pokémon</h1>
+    <main>
+      <h1>{nombreFormateado}</h1>
 
-    <p>ID del Pokémon: {id}</p>
+      <p>#{pokemon.id}</p>
+
+      <img
+        src={imagen}
+        alt={`Imagen de ${nombreFormateado}`}
+        width="300"
+        height="300"
+      />
+
+      <p>
+        <strong>Tipo:</strong>
+        {tipos.join(", ")}
+      </p>
+
+      <p>
+        <strong>Altura:</strong>
+        {alturaMetros} m
+      </p>
+
+      <p>
+        <strong>Peso:</strong>
+        {pesoKilos} kg
+      </p>
+    </main>
   </body>
 </html>
