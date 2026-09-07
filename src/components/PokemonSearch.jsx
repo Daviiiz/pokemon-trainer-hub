@@ -8,7 +8,7 @@ export default function PokemonSearch() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch(`${import.meta.env.PUBLIC_API_URL}/pokemon`)
+    fetch("https://pokeapi.co/api/v2/pokemon?limit=1351")
       .then((respuesta) => {
         if (!respuesta.ok) {
           throw new Error("No se pudieron cargar los Pokémon.");
@@ -17,7 +17,17 @@ export default function PokemonSearch() {
         return respuesta.json();
       })
       .then((datos) => {
-        setPokemons(datos);
+        const pokemonsAdaptados = datos.results.map((pokemon) => {
+          const partesUrl = pokemon.url.split("/").filter(Boolean);
+          const id = Number(partesUrl[partesUrl.length - 1]);
+
+          return {
+            id,
+            nombre: pokemon.name,
+          };
+        });
+
+        setPokemons(pokemonsAdaptados);
       })
       .catch((error) => {
         console.error(error);
@@ -28,13 +38,16 @@ export default function PokemonSearch() {
       });
   }, []);
 
-  const pokemonsFiltrados = pokemons.filter((pokemon) => {
-    return pokemon.nombre
-      .toLowerCase()
-      .includes(busqueda.toLowerCase());
-  });
+  const pokemonsFiltrados = busqueda.trim()
+    ? pokemons.filter((pokemon) => {
+        return pokemon.nombre
+          .toLowerCase()
+          .includes(busqueda.toLowerCase());
+      })
+    : [];
 
   const hayResultados = pokemonsFiltrados.length > 0;
+  const hayBusqueda = busqueda.trim().length > 0;
 
   return (
     <section>
@@ -51,6 +64,8 @@ export default function PokemonSearch() {
         <p>Cargando Pokémon...</p>
       ) : error ? (
         <p>{error}</p>
+      ) : !hayBusqueda ? (
+        <p>Escribe el nombre de un Pokémon para comenzar.</p>
       ) : hayResultados ? (
         <div>
           {pokemonsFiltrados.map((pokemon) => (
