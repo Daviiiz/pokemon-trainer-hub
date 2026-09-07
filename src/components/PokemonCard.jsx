@@ -6,16 +6,18 @@ export default function PokemonCard({ pokemon }) {
 
   return (
     <article>
-      <img
-        src={imagenUrl}
-        alt={`Imagen de ${pokemon.nombre}`}
-        width="180"
-        height="180"
-        loading="lazy"
-      />
+      <a href={`/pokemon/${pokemon.id}`}>
+        <img
+          src={imagenUrl}
+          alt={`Imagen de ${pokemon.nombre}`}
+          width="180"
+          height="180"
+          loading="lazy"
+        />
 
-      <h3>{nombreFormateado}</h3>
-      <p>#{pokemon.id}</p>
+        <h3>{nombreFormateado}</h3>
+        <p>#{pokemon.id}</p>
+      </a>
     </article>
   );
 }
