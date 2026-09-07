@@ -1,0 +1,96 @@
+---
+type BuildListado = {
+  id: number;
+};
+
+type Build = {
+  id: number;
+  pokemon_id: number;
+  titulo: string;
+  objeto: string;
+  movimiento_1: string;
+  movimiento_2: string;
+  movimiento_3: string;
+  movimiento_4: string;
+  rol: string;
+  descripcion: string | null;
+};
+
+export async function getStaticPaths() {
+  const respuesta = await fetch(
+    `${import.meta.env.PUBLIC_API_URL}/builds`
+  );
+
+  const builds: BuildListado[] = await respuesta.json();
+
+  return builds.map((build) => {
+    return {
+      params: {
+        id: String(build.id),
+      },
+    };
+  });
+}
+
+const { id } = Astro.params;
+
+const respuestaBuild = await fetch(
+  `${import.meta.env.PUBLIC_API_URL}/builds/${id}`
+);
+
+const build: Build = await respuestaBuild.json();
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{build.titulo} | Pokémon Trainer Hub</title>
+  </head>
+
+  <body>
+    <main>
+      <h1>{build.titulo}</h1>
+
+      <p>Build #{build.id}</p>
+
+      <p>
+        <strong>Pokémon:</strong>
+        #{build.pokemon_id}
+      </p>
+
+      <p>
+        <strong>Rol:</strong>
+        {build.rol}
+      </p>
+
+      <p>
+        <strong>Objeto:</strong>
+        {build.objeto}
+      </p>
+
+      <h2>Movimientos</h2>
+
+      <ul>
+        <li>{build.movimiento_1}</li>
+        <li>{build.movimiento_2}</li>
+        <li>{build.movimiento_3}</li>
+        <li>{build.movimiento_4}</li>
+      </ul>
+
+      {build.descripcion && (
+        <p>{build.descripcion}</p>
+      )}
+
+      <nav>
+        <a href={`/pokemon/${build.pokemon_id}`}>
+          Ver Pokémon
+        </a>
+
+        <a href="/builds">
+          Volver a Builds
+        </a>
+      </nav>
+    </main>
+  </body>
+</html>
