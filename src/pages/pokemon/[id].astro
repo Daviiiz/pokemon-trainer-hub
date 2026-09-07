@@ -1,0 +1,36 @@
+---
+export async function getStaticPaths() {
+  const respuesta = await fetch(
+    "https://pokeapi.co/api/v2/pokemon?limit=1351"
+  );
+
+  const datos = await respuesta.json();
+
+  return datos.results.map((pokemon) => {
+    const partesUrl = pokemon.url.split("/").filter(Boolean);
+    const id = partesUrl[partesUrl.length - 1];
+
+    return {
+      params: {
+        id,
+      },
+    };
+  });
+}
+
+const { id } = Astro.params;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Detalle Pokémon</title>
+  </head>
+
+  <body>
+    <h1>Detalle Pokémon</h1>
+
+    <p>ID del Pokémon: {id}</p>
+  </body>
+</html>
