@@ -9,6 +9,19 @@ type PokemonTipo = {
   };
 };
 
+type Build = {
+  id: number;
+  pokemon_id: number;
+  titulo: string;
+  objeto: string;
+  movimiento_1: string;
+  movimiento_2: string;
+  movimiento_3: string;
+  movimiento_4: string;
+  rol: string;
+  descripcion: string | null;
+};
+
 export async function getStaticPaths() {
   const respuesta = await fetch(
     "https://pokeapi.co/api/v2/pokemon?limit=1351"
@@ -40,7 +53,7 @@ const respuestaBuilds = await fetch(
   `${import.meta.env.PUBLIC_API_URL}/builds?pokemon_id=${id}`
 );
 
-const builds = await respuestaBuilds.json();
+const builds: Build[] = await respuestaBuilds.json();
 
 const nombreFormateado =
   pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
@@ -90,7 +103,42 @@ const pesoKilos = pokemon.weight / 10;
         <strong>Peso:</strong>
         {pesoKilos} kg
       </p>
-      <pre>{JSON.stringify(builds, null, 2)}</pre>
+      <section>
+  <h2>Estrategias destacadas</h2>
+
+  {builds.length > 0 ? (
+    builds.map((build) => (
+      <article>
+        <h3>{build.titulo}</h3>
+
+        <p>
+          <strong>Rol:</strong>
+          {build.rol}
+        </p>
+
+        <p>
+          <strong>Objeto:</strong>
+          {build.objeto}
+        </p>
+
+        <h4>Movimientos</h4>
+
+        <ul>
+          <li>{build.movimiento_1}</li>
+          <li>{build.movimiento_2}</li>
+          <li>{build.movimiento_3}</li>
+          <li>{build.movimiento_4}</li>
+        </ul>
+
+        {build.descripcion && (
+          <p>{build.descripcion}</p>
+        )}
+      </article>
+    ))
+  ) : (
+    <p>Este Pokémon todavía no tiene estrategias destacadas.</p>
+  )}
+</section>
     </main>
   </body>
 </html>
