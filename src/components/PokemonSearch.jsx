@@ -31,6 +31,7 @@ export default function PokemonSearch() {
       })
       .catch((error) => {
         console.error(error);
+
         setError("No se pudieron cargar los Pokémon.");
       })
       .finally(() => {
@@ -51,34 +52,127 @@ export default function PokemonSearch() {
 
   return (
     <section className="pokemon-search">
-      <h2>Buscar Pokémon</h2>
+      <div className="pokemon-search__header">
+        <div>
+          <p className="pokemon-search__eyebrow">
+            Buscador
+          </p>
 
-      <input
-        className="pokemon-search__input"
-        type="text"
-        placeholder="Escribe un Pokémon..."
-        value={busqueda}
-        onChange={(event) => setBusqueda(event.target.value)}
-      />
-
-      {cargando ? (
-        <p>Cargando Pokémon...</p>
-      ) : error ? (
-        <p>{error}</p>
-      ) : !hayBusqueda ? (
-        <p>Escribe el nombre de un Pokémon para comenzar.</p>
-      ) : hayResultados ? (
-        <div className="pokemon-grid">
-          {pokemonsFiltrados.map((pokemon) => (
-            <PokemonCard
-              key={pokemon.id}
-              pokemon={pokemon}
-            />
-          ))}
+          <h2 className="pokemon-search__title">
+            Buscar Pokémon
+          </h2>
         </div>
-      ) : (
-        <p>No se encontraron Pokémon.</p>
-      )}
+
+        <span className="pokemon-search__counter">
+          {hayBusqueda
+            ? `${pokemonsFiltrados.length} resultados`
+            : "1351 disponibles"}
+        </span>
+      </div>
+
+      <div className="pokemon-search__control">
+        <span
+          className="pokemon-search__icon"
+          aria-hidden="true"
+        >
+          ⌕
+        </span>
+
+        <input
+          className="pokemon-search__input"
+          type="search"
+          placeholder="Escribe un Pokémon..."
+          value={busqueda}
+          onChange={(event) => setBusqueda(event.target.value)}
+          aria-label="Buscar Pokémon por nombre"
+        />
+
+        {hayBusqueda && (
+          <button
+            className="pokemon-search__clear"
+            type="button"
+            onClick={() => setBusqueda("")}
+          >
+            Limpiar
+          </button>
+        )}
+      </div>
+
+      <div className="pokemon-search__status">
+        {cargando ? (
+          <div className="pokemon-search__message">
+            <span
+              className="pokemon-search__loader"
+              aria-hidden="true"
+            ></span>
+
+            <p>Cargando Pokémon...</p>
+          </div>
+        ) : error ? (
+          <div className="pokemon-search__message pokemon-search__message--error">
+            <span aria-hidden="true">!</span>
+
+            <p>{error}</p>
+          </div>
+        ) : !hayBusqueda ? (
+          <div className="pokemon-search__message">
+            <span
+              className="pokemon-search__message-icon"
+              aria-hidden="true"
+            >
+              ◉
+            </span>
+
+            <div>
+              <strong>Empieza a buscar</strong>
+
+              <p>
+                Escribe el nombre de un Pokémon para consultar
+                sus datos y estrategias.
+              </p>
+            </div>
+          </div>
+        ) : hayResultados ? (
+          <div className="pokemon-search__results">
+            <div className="pokemon-search__results-header">
+              <p>
+                Resultados para
+                <strong> “{busqueda}”</strong>
+              </p>
+
+              <span>
+                {pokemonsFiltrados.length}
+              </span>
+            </div>
+
+            <div className="pokemon-grid">
+              {pokemonsFiltrados.map((pokemon) => (
+                <PokemonCard
+                  key={pokemon.id}
+                  pokemon={pokemon}
+                />
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="pokemon-search__message pokemon-search__message--empty">
+            <span
+              className="pokemon-search__message-icon"
+              aria-hidden="true"
+            >
+              ?
+            </span>
+
+            <div>
+              <strong>No encontramos ese Pokémon</strong>
+
+              <p>
+                Prueba con otro nombre o revisa la búsqueda.
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
     </section>
   );
 }

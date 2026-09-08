@@ -4,11 +4,57 @@ import PokemonSearch from "../components/PokemonSearch.jsx";
 ---
 
 <Layout title="Pokédex">
-  <h1>Pokédex</h1>
+  <section class="pokedex-page">
+    <header class="pokedex-hero">
+      <div class="pokedex-hero__content">
+        <p class="pokedex-hero__eyebrow">
+          Pokédex Nacional
+        </p>
 
-  <p>
-    Busca un Pokémon para consultar su información y estrategias.
-  </p>
+        <h1 class="pokedex-hero__title">
+          Encuentra tu próximo
+          <span>Pokémon.</span>
+        </h1>
 
-  <PokemonSearch client:load />
+        <p class="pokedex-hero__description">
+          Explora los 1351 Pokémon disponibles, consulta sus
+          características y accede a sus estrategias competitivas.
+        </p>
+
+        <div class="pokedex-hero__meta">
+          <div class="pokedex-meta">
+            <strong>1351</strong>
+            <span>Pokémon</span>
+          </div>
+
+          <div class="pokedex-meta">
+            <strong>PokéAPI</strong>
+            <span>Catálogo base</span>
+          </div>
+
+          <div class="pokedex-meta">
+            <strong>Instantánea</strong>
+            <span>Búsqueda por nombre</span>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="pokedex-hero__visual"
+        aria-hidden="true"
+      >
+        <div class="pokedex-scanner">
+          <div class="pokedex-scanner__ring"></div>
+
+          <span class="pokedex-scanner__number">
+            #025
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <section class="pokedex-search-panel">
+      <PokemonSearch client:load />
+    </section>
+  </section>
 </Layout>

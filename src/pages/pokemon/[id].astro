@@ -72,66 +72,175 @@ const pesoKilos = pokemon.weight / 10;
 ---
 
 <Layout title={nombreFormateado}>
-  <h1>{nombreFormateado}</h1>
+  <article class="pokemon-detail">
+    <section class="pokemon-detail__hero">
+      <div class="pokemon-detail__content">
+        <a
+          class="pokemon-detail__back"
+          href="/pokedex"
+        >
+          ← Volver a Pokédex
+        </a>
 
-  <p>#{pokemon.id}</p>
+        <p class="pokemon-detail__eyebrow">
+          Pokémon #{pokemon.id}
+        </p>
 
-  <img
-    src={imagen}
-    alt={`Imagen de ${nombreFormateado}`}
-    width="300"
-    height="300"
-  />
+        <h1 class="pokemon-detail__title">
+          {nombreFormateado}
+        </h1>
 
-  <p>
-    <strong>Tipo:</strong>
-    {tipos.join(", ")}
-  </p>
+        <div class="pokemon-detail__types">
+          {tipos.map((tipo: string) => (
+            <span
+              class={`pokemon-type pokemon-type--${tipo}`}
+            >
+              {tipo}
+            </span>
+          ))}
+        </div>
 
-  <p>
-    <strong>Altura:</strong>
-    {alturaMetros} m
-  </p>
+        <div class="pokemon-detail__facts">
+          <div class="pokemon-fact">
+            <span class="pokemon-fact__label">
+              Altura
+            </span>
 
-  <p>
-    <strong>Peso:</strong>
-    {pesoKilos} kg
-  </p>
+            <strong>
+              {alturaMetros} m
+            </strong>
+          </div>
 
-  <section>
-    <h2>Estrategias destacadas</h2>
+          <div class="pokemon-fact">
+            <span class="pokemon-fact__label">
+              Peso
+            </span>
 
-    {builds.length > 0 ? (
-      builds.map((build) => (
-        <article>
-          <h3>{build.titulo}</h3>
+            <strong>
+              {pesoKilos} kg
+            </strong>
+          </div>
 
-          <p>
-            <strong>Rol:</strong>
-            {build.rol}
+          <div class="pokemon-fact">
+            <span class="pokemon-fact__label">
+              Pokédex
+            </span>
+
+            <strong>
+              #{pokemon.id}
+            </strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="pokemon-detail__visual">
+        <div
+          class="pokemon-detail__glow"
+          aria-hidden="true"
+        ></div>
+
+        <img
+          class="pokemon-detail__image"
+          src={imagen}
+          alt={`Artwork oficial de ${nombreFormateado}`}
+          width="380"
+          height="380"
+        />
+      </div>
+    </section>
+
+    <section class="pokemon-builds">
+      <header class="pokemon-builds__header">
+        <div>
+          <p class="pokemon-builds__eyebrow">
+            Estrategias
           </p>
 
-          <p>
-            <strong>Objeto:</strong>
-            {build.objeto}
-          </p>
+          <h2>
+            Builds destacadas
+          </h2>
+        </div>
 
-          <h4>Movimientos</h4>
+        <span class="pokemon-builds__count">
+          {builds.length}
+          {builds.length === 1 ? " Build" : " Builds"}
+        </span>
+      </header>
 
-          <ul>
-            <li>{build.movimiento_1}</li>
-            <li>{build.movimiento_2}</li>
-            <li>{build.movimiento_3}</li>
-            <li>{build.movimiento_4}</li>
-          </ul>
+      {builds.length > 0 ? (
+        <div class="pokemon-builds__grid">
+          {builds.map((build) => (
+            <article class="pokemon-build-card">
+              <header class="pokemon-build-card__header">
+                <div>
+                  <p class="pokemon-build-card__role">
+                    {build.rol}
+                  </p>
 
-          {build.descripcion && (
-            <p>{build.descripcion}</p>
-          )}
-        </article>
-      ))
-    ) : (
-      <p>Este Pokémon todavía no tiene estrategias destacadas.</p>
-    )}
-  </section>
+                  <h3>
+                    {build.titulo}
+                  </h3>
+                </div>
+
+                <span class="pokemon-build-card__id">
+                  #{build.id}
+                </span>
+              </header>
+
+              <div class="pokemon-build-card__item">
+                <span>Objeto</span>
+
+                <strong>
+                  {build.objeto}
+                </strong>
+              </div>
+
+              <div class="pokemon-build-card__moves">
+                <p>
+                  Movimientos
+                </p>
+
+                <div class="pokemon-move-grid">
+                  <span>{build.movimiento_1}</span>
+                  <span>{build.movimiento_2}</span>
+                  <span>{build.movimiento_3}</span>
+                  <span>{build.movimiento_4}</span>
+                </div>
+              </div>
+
+              {build.descripcion && (
+                <p class="pokemon-build-card__description">
+                  {build.descripcion}
+                </p>
+              )}
+
+              <a
+                class="pokemon-build-card__link"
+                href={`/builds/${build.id}`}
+              >
+                Ver Build completa
+                <span aria-hidden="true">→</span>
+              </a>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div class="pokemon-builds__empty">
+          <span aria-hidden="true">
+            ◉
+          </span>
+
+          <div>
+            <strong>
+              Sin estrategias todavía
+            </strong>
+
+            <p>
+              Este Pokémon todavía no tiene Builds destacadas.
+            </p>
+          </div>
+        </div>
+      )}
+    </section>
+  </article>
 </Layout>
