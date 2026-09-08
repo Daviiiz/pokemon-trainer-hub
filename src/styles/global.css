@@ -506,12 +506,17 @@ a {
 
   background:
     radial-gradient(
-      circle at 85% 20%,
-      rgba(250, 204, 21, 0.18),
+      circle at 83% 25%,
+      rgba(139, 92, 246, 0.21),
+      transparent 31%
+    ),
+    radial-gradient(
+      circle at 90% 73%,
+      rgba(250, 204, 21, 0.12),
       transparent 28%
     ),
     radial-gradient(
-      circle at 15% 90%,
+      circle at 12% 92%,
       rgba(59, 130, 246, 0.18),
       transparent 32%
     ),
@@ -531,7 +536,7 @@ a {
 
 .hero__content {
   position: relative;
-  z-index: 2;
+  z-index: 10;
 }
 
 .hero__eyebrow {
@@ -698,14 +703,29 @@ a {
 
   border-radius: 50%;
 
-  filter: blur(12px);
+  filter: blur(18px);
 
   opacity: 0.65;
 }
 
 .hero__orb--one {
-  top: 30px;
-  right: 20px;
+  top: 5px;
+  right: -30px;
+
+  width: 270px;
+  height: 270px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(168, 85, 247, 0.55),
+      rgba(168, 85, 247, 0)
+    );
+}
+
+.hero__orb--two {
+  bottom: -25px;
+  left: -15px;
 
   width: 210px;
   height: 210px;
@@ -713,32 +733,195 @@ a {
   background:
     radial-gradient(
       circle,
-      rgba(250, 204, 21, 0.65),
-      rgba(250, 204, 21, 0)
-    );
-}
-
-.hero__orb--two {
-  bottom: 10px;
-  left: 10px;
-
-  width: 180px;
-  height: 180px;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(59, 130, 246, 0.55),
+      rgba(59, 130, 246, 0.5),
       rgba(59, 130, 246, 0)
     );
 }
 
+/* =========================
+   ESCENA POKÉMON
+   ========================= */
+
+.hero-pokemon-scene {
+  position: relative;
+
+  width: 100%;
+  height: 420px;
+
+  isolation: isolate;
+}
+
+.hero-pokemon-scene::before {
+  content: "";
+
+  position: absolute;
+  top: 22px;
+  right: -40px;
+  z-index: 0;
+
+  width: 340px;
+  height: 340px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(168, 85, 247, 0.12) 0%,
+      rgba(168, 85, 247, 0.04) 38%,
+      transparent 70%
+    );
+
+  border-radius: 50%;
+
+  filter: blur(4px);
+}
+
+.hero-pokemon-scene::after {
+  content: "";
+
+  position: absolute;
+  top: 72px;
+  left: 110px;
+  z-index: 0;
+
+  width: 4px;
+  height: 4px;
+
+  background-color: rgba(255, 255, 255, 0.7);
+
+  border-radius: 50%;
+
+  box-shadow:
+    68px 24px rgba(250, 204, 21, 0.7),
+    145px -22px rgba(255, 255, 255, 0.55),
+    224px 18px rgba(196, 181, 253, 0.65),
+    248px 118px rgba(255, 255, 255, 0.45),
+    88px 188px rgba(125, 211, 252, 0.45),
+    184px 236px rgba(250, 204, 21, 0.45);
+
+  animation:
+    hero-particles 4.5s ease-in-out infinite;
+}
+
+.hero-pokemon {
+  position: absolute;
+
+  pointer-events: none;
+}
+
+.hero-pokemon img {
+  display: block;
+
+  width: 100%;
+  height: auto;
+}
+
+/* =========================
+   MEWTWO - PRESENCIA DE FONDO
+   ========================= */
+
+.hero-pokemon--mewtwo {
+  top: -42px;
+  right: -105px;
+  z-index: 1;
+
+  width: 420px;
+
+  opacity: 0.1;
+
+  filter:
+    saturate(0.8)
+    drop-shadow(0 0 38px rgba(168, 85, 247, 0.72));
+
+  animation:
+    hero-mewtwo-float 7s ease-in-out infinite;
+}
+
+/* =========================
+   CHARIZARD - CAPA MEDIA
+   ========================= */
+
+.hero-pokemon--charizard {
+  top: 86px;
+  right: -38px;
+  z-index: 4;
+
+  width: 250px;
+
+  opacity: 0.96;
+
+  filter:
+    drop-shadow(0 22px 20px rgba(0, 0, 0, 0.3))
+    drop-shadow(0 0 18px rgba(249, 115, 22, 0.12));
+
+  animation:
+    hero-charizard-float 5.8s ease-in-out infinite;
+}
+
+/* =========================
+   PIKACHU - PROTAGONISTA
+   ========================= */
+
+.hero-pokemon--pikachu {
+  left: -18px;
+  bottom: 52px;
+  z-index: 6;
+
+  width: 240px;
+
+  filter:
+    drop-shadow(0 24px 22px rgba(0, 0, 0, 0.3))
+    drop-shadow(0 0 22px rgba(250, 204, 21, 0.14));
+
+  animation:
+    hero-pikachu-float 4.8s ease-in-out infinite;
+}
+
+/* =========================
+   MEW - DETALLE SUPERIOR
+   ========================= */
+
+.hero-pokemon--mew {
+  top: 8px;
+  left: 36px;
+  z-index: 5;
+
+  width: 92px;
+
+  opacity: 0.92;
+
+  filter:
+    drop-shadow(0 8px 18px rgba(236, 72, 153, 0.28));
+
+  animation:
+    hero-mew-float 6.2s ease-in-out infinite;
+}
+
+/* =========================
+   CELEBI - DETALLE INFERIOR
+   ========================= */
+
+.hero-pokemon--celebi {
+  right: 24px;
+  bottom: 88px;
+  z-index: 6;
+
+  width: 72px;
+
+  opacity: 0.94;
+
+  filter:
+    drop-shadow(0 8px 18px rgba(34, 197, 94, 0.3));
+
+  animation:
+    hero-celebi-float 5.2s ease-in-out infinite;
+}
+
+/* =========================
+   POKÉBALL
+   ========================= */
+
 .hero-pokeball {
   position: relative;
-  z-index: 2;
-
-  width: 280px;
-  height: 280px;
 
   background:
     linear-gradient(
@@ -751,15 +934,11 @@ a {
       #ffffff 100%
     );
 
-  border: 8px solid #111827;
+  border: 4px solid #111827;
   border-radius: 50%;
 
   box-shadow:
-    0 0 0 10px rgba(255, 255, 255, 0.04),
-    0 30px 80px rgba(0, 0, 0, 0.4),
-    0 0 70px rgba(250, 204, 21, 0.12);
-
-  animation: hero-float 5s ease-in-out infinite;
+    0 14px 28px rgba(0, 0, 0, 0.28);
 }
 
 .hero-pokeball__center {
@@ -767,29 +946,213 @@ a {
   top: 50%;
   left: 50%;
 
-  width: 72px;
-  height: 72px;
+  background-color: #ffffff;
+
+  border: 4px solid #111827;
+  border-radius: 50%;
+
+  transform: translate(-50%, -50%);
+}
+
+.hero-pokeball--small {
+  position: absolute;
+  right: 112px;
+  bottom: 4px;
+  z-index: 8;
+
+  width: 66px;
+  height: 66px;
+
+  opacity: 0.92;
+
+  animation:
+    hero-pokeball-small 6s ease-in-out infinite;
+}
+
+.hero-pokeball--small .hero-pokeball__center {
+  width: 22px;
+  height: 22px;
+
+  box-shadow:
+    inset 0 0 0 3px #e5e7eb;
+}
+
+/* =========================
+   MASTER BALL
+   ========================= */
+
+.hero-masterball {
+  position: absolute;
+  right: 28px;
+  bottom: 4px;
+  z-index: 8;
+
+  width: 68px;
+  height: 68px;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 24% 26%,
+      #ec4899 0%,
+      #ec4899 9%,
+      transparent 10%
+    ),
+    radial-gradient(
+      circle at 76% 26%,
+      #ec4899 0%,
+      #ec4899 9%,
+      transparent 10%
+    ),
+    linear-gradient(
+      to bottom,
+      #7c3aed 0%,
+      #7c3aed 46%,
+      #111827 46%,
+      #111827 54%,
+      #ffffff 54%,
+      #ffffff 100%
+    );
+
+  border: 4px solid #111827;
+  border-radius: 50%;
+
+  box-shadow:
+    0 14px 28px rgba(0, 0, 0, 0.3),
+    0 0 30px rgba(168, 85, 247, 0.2);
+
+  animation:
+    hero-masterball-float 6.8s ease-in-out infinite;
+}
+
+.hero-masterball__letter {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  z-index: 2;
+
+  color: #ffffff;
+
+  font-size: 0.86rem;
+  font-weight: 900;
+
+  transform: translateX(-50%);
+
+  text-shadow:
+    0 2px 3px rgba(0, 0, 0, 0.35);
+}
+
+.hero-masterball__center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 22px;
+  height: 22px;
 
   background-color: #ffffff;
 
-  border: 8px solid #111827;
+  border: 4px solid #111827;
   border-radius: 50%;
 
   transform: translate(-50%, -50%);
 
   box-shadow:
-    inset 0 0 0 8px #e5e7eb,
-    0 0 30px rgba(255, 255, 255, 0.15);
+    inset 0 0 0 3px #e5e7eb;
 }
 
-@keyframes hero-float {
+/* =========================
+   ANIMACIONES HERO
+   ========================= */
+
+@keyframes hero-pikachu-float {
   0%,
   100% {
-    transform: translateY(0) rotate(-4deg);
+    transform: translateY(0) rotate(-3deg);
   }
 
   50% {
-    transform: translateY(-16px) rotate(4deg);
+    transform: translateY(-12px) rotate(1deg);
+  }
+}
+
+@keyframes hero-charizard-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(2deg);
+  }
+
+  50% {
+    transform: translateY(-9px) rotate(-2deg);
+  }
+}
+
+@keyframes hero-mewtwo-float {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-8px) scale(1.025);
+  }
+}
+
+@keyframes hero-mew-float {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(-4deg);
+  }
+
+  50% {
+    transform: translate(8px, -10px) rotate(4deg);
+  }
+}
+
+@keyframes hero-celebi-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(3deg);
+  }
+
+  50% {
+    transform: translateY(-11px) rotate(-4deg);
+  }
+}
+
+@keyframes hero-pokeball-small {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-8deg);
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(8deg);
+  }
+}
+
+@keyframes hero-masterball-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(7deg);
+  }
+
+  50% {
+    transform: translateY(-10px) rotate(-7deg);
+  }
+}
+
+@keyframes hero-particles {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: translateY(0);
+  }
+
+  50% {
+    opacity: 0.85;
+    transform: translateY(-6px);
   }
 }
 
@@ -882,7 +1245,36 @@ a {
 }
 
 /* =========================
-   RESPONSIVE
+   TABLET
+   ========================= */
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+
+    gap: 28px;
+
+    padding: 48px;
+  }
+
+  .hero__visual {
+    min-height: 380px;
+  }
+
+  .hero-pokemon-scene {
+    width: min(470px, 100%);
+    height: 380px;
+
+    margin: 0 auto;
+  }
+
+  .home-features {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================
+   MÓVIL
    ========================= */
 
 @media (max-width: 640px) {
@@ -929,6 +1321,7 @@ a {
 
   .hero {
     grid-template-columns: 1fr;
+
     gap: 24px;
 
     min-height: auto;
@@ -963,24 +1356,122 @@ a {
   }
 
   .hero__visual {
-    min-height: 280px;
+    min-height: 300px;
   }
 
-  .hero-pokeball {
-    width: 190px;
-    height: 190px;
-
-    border-width: 6px;
+  .hero-pokemon-scene {
+    width: 100%;
+    height: 300px;
   }
 
-  .hero-pokeball__center {
+  .hero-pokemon-scene::before {
+    width: 260px;
+    height: 260px;
+
+    right: -40px;
+  }
+
+  .hero-pokemon-scene::after {
+    left: 40px;
+
+    opacity: 0.45;
+  }
+
+  .hero-pokemon--mewtwo {
+    top: 4px;
+    right: -42px;
+
+    width: 285px;
+
+    opacity: 0.1;
+  }
+
+  .hero-pokemon--pikachu {
+    left: -8px;
+    bottom: 42px;
+
+    width: 155px;
+  }
+
+  .hero-pokemon--charizard {
+    top: 76px;
+    right: -4px;
+
+    width: 160px;
+  }
+
+  .hero-pokemon--mew {
+    top: 4px;
+    left: 14px;
+
+    width: 68px;
+  }
+
+  .hero-pokemon--celebi {
+    right: 10px;
+    bottom: 66px;
+
     width: 54px;
-    height: 54px;
+  }
 
-    border-width: 6px;
+  .hero-pokeball--small {
+    right: 68px;
+    bottom: 2px;
+
+    width: 48px;
+    height: 48px;
+
+    border-width: 3px;
+  }
+
+  .hero-pokeball--small .hero-pokeball__center {
+    width: 17px;
+    height: 17px;
+
+    border-width: 3px;
+  }
+
+  .hero-masterball {
+    right: 8px;
+    bottom: 2px;
+
+    width: 48px;
+    height: 48px;
+
+    border-width: 3px;
+  }
+
+  .hero-masterball__letter {
+    top: 4px;
+
+    font-size: 0.62rem;
+  }
+
+  .hero-masterball__center {
+    width: 17px;
+    height: 17px;
+
+    border-width: 3px;
   }
 
   .home-features {
     grid-template-columns: 1fr;
+  }
+}
+
+/* =========================
+   ACCESIBILIDAD
+   ========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-pokemon--pikachu,
+  .hero-pokemon--charizard,
+  .hero-pokemon--mewtwo,
+  .hero-pokemon--mew,
+  .hero-pokemon--celebi,
+  .hero-pokeball--small,
+  .hero-masterball,
+  .hero-pokemon-scene::after {
+    animation: none;
   }
 }
