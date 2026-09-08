@@ -3,14 +3,114 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Inicio">
-  <h1>Pokémon Trainer Hub</h1>
+  <section class="hero">
+    <div class="hero__content">
+      <p class="hero__eyebrow">
+        Explora · Entrena · Compite
+      </p>
 
-  <p>
-    Explora Pokémon y consulta estrategias competitivas destacadas.
-  </p>
+      <h1 class="hero__title">
+        Tu universo Pokémon,
+        <span>en un solo lugar.</span>
+      </h1>
 
-  <nav>
-    <a href="/pokedex">Ir a la Pokédex</a>
-    <a href="/builds">Ver Builds destacadas</a>
-  </nav>
+      <p class="hero__description">
+        Explora más de 1300 Pokémon, consulta sus características
+        y descubre estrategias competitivas creadas para llevar
+        cada combate al siguiente nivel.
+      </p>
+
+      <div class="hero__actions">
+        <a
+          class="hero__button hero__button--primary"
+          href="/pokedex"
+        >
+          Explorar Pokédex
+        </a>
+
+        <a
+          class="hero__button hero__button--secondary"
+          href="/builds"
+        >
+          Ver Builds
+        </a>
+      </div>
+
+      <div class="hero__stats">
+        <div class="hero-stat">
+          <strong>1351</strong>
+          <span>Pokémon</span>
+        </div>
+
+        <div class="hero-stat">
+          <strong>PokéAPI</strong>
+          <span>Datos oficiales</span>
+        </div>
+
+        <div class="hero-stat">
+          <strong>Builds</strong>
+          <span>Estrategias propias</span>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="hero__visual"
+      aria-hidden="true"
+    >
+      <div class="hero__orb hero__orb--one"></div>
+      <div class="hero__orb hero__orb--two"></div>
+
+      <div class="hero-pokeball">
+        <div class="hero-pokeball__center"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-features">
+    <article class="feature-card">
+      <span class="feature-card__number">01</span>
+
+      <h2>Explora la Pokédex</h2>
+
+      <p>
+        Busca entre más de 1300 Pokémon y consulta información,
+        tipos, artwork y características.
+      </p>
+
+      <a href="/pokedex">
+        Abrir Pokédex →
+      </a>
+    </article>
+
+    <article class="feature-card">
+      <span class="feature-card__number">02</span>
+
+      <h2>Descubre Builds</h2>
+
+      <p>
+        Consulta estrategias competitivas con objetos,
+        movimientos y roles para distintos Pokémon.
+      </p>
+
+      <a href="/builds">
+        Explorar Builds →
+      </a>
+    </article>
+
+    <article class="feature-card">
+      <span class="feature-card__number">03</span>
+
+      <h2>Conecta los datos</h2>
+
+      <p>
+        Cada Pokémon combina información de PokéAPI con
+        estrategias almacenadas en nuestra propia API.
+      </p>
+
+      <a href="/pokemon/25">
+        Ver un ejemplo →
+      </a>
+    </article>
+  </section>
 </Layout>

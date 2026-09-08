@@ -1,6 +1,4 @@
-
 ---
-
 import "../styles/global.css";
 
 type Props = {
@@ -17,23 +15,41 @@ const { title } = Astro.props;
     <title>{title} | Pokémon Trainer Hub</title>
   </head>
 
-  <body>
-    <header>
-      <a href="/">Pokémon Trainer Hub</a>
+  <body class="site-body">
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a
+          class="site-brand"
+          href="/"
+        >
+          <span
+            class="site-brand__mark"
+            aria-hidden="true"
+          ></span>
 
-      <nav aria-label="Navegación principal">
-        <a href="/">Inicio</a>
-        <a href="/pokedex">Pokédex</a>
-        <a href="/builds">Builds</a>
-      </nav>
+          <span>Pokémon Trainer Hub</span>
+        </a>
+
+        <nav
+          class="site-nav"
+          aria-label="Navegación principal"
+        >
+          <a href="/">Inicio</a>
+          <a href="/pokedex">Pokédex</a>
+          <a href="/builds">Builds</a>
+        </nav>
+      </div>
     </header>
 
-    <main>
+    <main class="site-main">
       <slot />
     </main>
 
-    <footer>
-      <p>Pokémon Trainer Hub</p>
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <p>Pokémon Trainer Hub</p>
+        <p>Pokédex y estrategias competitivas.</p>
+      </div>
     </footer>
   </body>
 </html>
