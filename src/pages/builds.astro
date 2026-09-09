@@ -4,11 +4,79 @@ import BuildList from "../components/BuildList.jsx";
 ---
 
 <Layout title="Builds">
-  <h1>Builds destacadas</h1>
+  <section class="builds-page">
+    <header class="builds-hero">
+      <div class="builds-hero__content">
+        <p class="builds-hero__eyebrow">
+          Estrategias competitivas
+        </p>
 
-  <p>
-    Consulta estrategias competitivas creadas para distintos Pokémon.
-  </p>
+        <h1 class="builds-hero__title">
+          Builds para llevar tu equipo
+          <span>al siguiente nivel.</span>
+        </h1>
 
-  <BuildList client:load />
+        <p class="builds-hero__description">
+          Descubre configuraciones competitivas con objetos,
+          movimientos y roles para distintos Pokémon.
+          Cada estrategia combina nuestro propio backend
+          con información obtenida desde PokéAPI.
+        </p>
+
+        <div class="builds-hero__meta">
+          <div class="builds-meta">
+            <strong>API propia</strong>
+            <span>Estrategias</span>
+          </div>
+
+          <div class="builds-meta">
+            <strong>MySQL</strong>
+            <span>Persistencia</span>
+          </div>
+
+          <div class="builds-meta">
+            <strong>PokéAPI</strong>
+            <span>Datos Pokémon</span>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="builds-hero__visual"
+        aria-hidden="true"
+      >
+        <div class="builds-emblem">
+          <span class="builds-emblem__symbol">
+            ⚔
+          </span>
+
+          <span class="builds-emblem__label">
+            BUILDS
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <section class="builds-catalog">
+      <header class="builds-catalog__header">
+        <div>
+          <p class="builds-catalog__eyebrow">
+            Catálogo
+          </p>
+
+          <h2>
+            Builds destacadas
+          </h2>
+        </div>
+
+        <p class="builds-catalog__description">
+          Selecciona una estrategia para consultar
+          todos sus detalles o visita directamente
+          la ficha del Pokémon.
+        </p>
+      </header>
+
+      <BuildList client:load />
+    </section>
+  </section>
 </Layout>

@@ -18,6 +18,12 @@ type Build = {
   descripcion: string | null;
 };
 
+type PokemonTipo = {
+  type: {
+    name: string;
+  };
+};
+
 export async function getStaticPaths() {
   const respuesta = await fetch(
     `${import.meta.env.PUBLIC_API_URL}/builds`
@@ -41,48 +47,187 @@ const respuestaBuild = await fetch(
 );
 
 const build: Build = await respuestaBuild.json();
+
+const respuestaPokemon = await fetch(
+  `https://pokeapi.co/api/v2/pokemon/${build.pokemon_id}`
+);
+
+const pokemon = await respuestaPokemon.json();
+
+const nombrePokemon =
+  pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+
+const tipos = pokemon.types.map(
+  (tipo: PokemonTipo) => tipo.type.name
+);
+
+const imagenPokemon =
+  pokemon.sprites.other["official-artwork"].front_default;
 ---
 
 <Layout title={build.titulo}>
-  <h1>{build.titulo}</h1>
+  <article class="build-detail">
+    <section class="build-detail__hero">
+      <div class="build-detail__content">
+        <a
+          class="build-detail__back"
+          href="/builds"
+        >
+          ← Volver a Builds
+        </a>
 
-  <p>Build #{build.id}</p>
+        <p class="build-detail__eyebrow">
+          Build #{build.id}
+        </p>
 
-  <p>
-    <strong>Pokémon:</strong>
-    #{build.pokemon_id}
-  </p>
+        <h1 class="build-detail__title">
+          {build.titulo}
+        </h1>
 
-  <p>
-    <strong>Rol:</strong>
-    {build.rol}
-  </p>
+        <p class="build-detail__role">
+          {build.rol}
+        </p>
 
-  <p>
-    <strong>Objeto:</strong>
-    {build.objeto}
-  </p>
+        <div class="build-detail__pokemon">
+          <span>
+            Estrategia para
+          </span>
 
-  <h2>Movimientos</h2>
+          <strong>
+            {nombrePokemon}
+          </strong>
 
-  <ul>
-    <li>{build.movimiento_1}</li>
-    <li>{build.movimiento_2}</li>
-    <li>{build.movimiento_3}</li>
-    <li>{build.movimiento_4}</li>
-  </ul>
+          <span>
+            #{build.pokemon_id}
+          </span>
+        </div>
 
-  {build.descripcion && (
-    <p>{build.descripcion}</p>
-  )}
+        <div class="build-detail__types">
+          {tipos.map((tipo: string) => (
+            <span
+              class={`pokemon-type pokemon-type--${tipo}`}
+            >
+              {tipo}
+            </span>
+          ))}
+        </div>
+      </div>
 
-  <nav>
-    <a href={`/pokemon/${build.pokemon_id}`}>
-      Ver Pokémon
-    </a>
+      <div class="build-detail__visual">
+        <div
+          class="build-detail__glow"
+          aria-hidden="true"
+        ></div>
 
-    <a href="/builds">
-      Volver a Builds
-    </a>
-  </nav>
+        <img
+          class="build-detail__pokemon-image"
+          src={imagenPokemon}
+          alt={`Artwork oficial de ${nombrePokemon}`}
+          width="340"
+          height="340"
+        />
+
+        <span class="build-detail__pokemon-name">
+          {nombrePokemon}
+        </span>
+      </div>
+    </section>
+
+    <section class="build-detail__strategy">
+      <header class="build-detail__strategy-header">
+        <div>
+          <p class="build-detail__strategy-eyebrow">
+            Configuración competitiva
+          </p>
+
+          <h2>
+            Estrategia
+          </h2>
+        </div>
+
+        <span class="build-detail__strategy-id">
+          #{build.id}
+        </span>
+      </header>
+
+      <div class="build-detail__info-grid">
+        <article class="build-info-card">
+          <span class="build-info-card__label">
+            Objeto
+          </span>
+
+          <strong>
+            {build.objeto}
+          </strong>
+        </article>
+
+        <article class="build-info-card">
+          <span class="build-info-card__label">
+            Rol
+          </span>
+
+          <strong>
+            {build.rol}
+          </strong>
+        </article>
+      </div>
+
+      <section class="build-detail__moves">
+        <p class="build-detail__section-label">
+          Movimientos
+        </p>
+
+        <div class="build-detail__move-grid">
+          <article class="build-move">
+            <span>01</span>
+            <strong>{build.movimiento_1}</strong>
+          </article>
+
+          <article class="build-move">
+            <span>02</span>
+            <strong>{build.movimiento_2}</strong>
+          </article>
+
+          <article class="build-move">
+            <span>03</span>
+            <strong>{build.movimiento_3}</strong>
+          </article>
+
+          <article class="build-move">
+            <span>04</span>
+            <strong>{build.movimiento_4}</strong>
+          </article>
+        </div>
+      </section>
+
+      {build.descripcion && (
+        <section class="build-detail__description">
+          <p class="build-detail__section-label">
+            Descripción
+          </p>
+
+          <p>
+            {build.descripcion}
+          </p>
+        </section>
+      )}
+
+      <div class="build-detail__actions">
+        <a
+          class="build-detail__primary-action"
+          href={`/pokemon/${build.pokemon_id}`}
+        >
+          Ver {nombrePokemon}
+          <span aria-hidden="true">→</span>
+        </a>
+
+        <a
+          class="build-detail__secondary-action"
+          href="/builds"
+        >
+          Todas las Builds
+        </a>
+      </div>
+    </section>
+  </article>
 </Layout>

@@ -14,8 +14,42 @@ export default function BuildList() {
 
         return respuesta.json();
       })
-      .then((datos) => {
-        setBuilds(datos);
+      .then(async (datos) => {
+        const buildsEnriquecidas = await Promise.all(
+          datos.map(async (build) => {
+            const respuestaPokemon = await fetch(
+              `https://pokeapi.co/api/v2/pokemon/${build.pokemon_id}`
+            );
+
+            if (!respuestaPokemon.ok) {
+              throw new Error(
+                "No se pudieron cargar los datos de los Pokémon."
+              );
+            }
+
+            const pokemon = await respuestaPokemon.json();
+
+            const nombrePokemon =
+              pokemon.name.charAt(0).toUpperCase() +
+              pokemon.name.slice(1);
+
+            const tiposPokemon = pokemon.types.map(
+              (tipo) => tipo.type.name
+            );
+
+            const imagenPokemon =
+              pokemon.sprites.other["official-artwork"].front_default;
+
+            return {
+              ...build,
+              pokemon_nombre: nombrePokemon,
+              pokemon_tipos: tiposPokemon,
+              pokemon_imagen: imagenPokemon,
+            };
+          })
+        );
+
+        setBuilds(buildsEnriquecidas);
       })
       .catch((error) => {
         console.error(error);
@@ -45,9 +79,35 @@ export default function BuildList() {
           className="build-card"
           key={build.id}
         >
-          <div className="build-card__header">
+          <div className="build-card__visual">
+            <img
+              className="build-card__image"
+              src={build.pokemon_imagen}
+              alt={`Artwork oficial de ${build.pokemon_nombre}`}
+              width="220"
+              height="220"
+              loading="lazy"
+            />
+
+            <span className="build-card__pokemon-id">
+              #{build.pokemon_id}
+            </span>
+          </div>
+
+          <div className="build-card__content">
+            <div className="build-card__types">
+              {build.pokemon_tipos.map((tipo) => (
+                <span
+                  className={`pokemon-type pokemon-type--${tipo}`}
+                  key={tipo}
+                >
+                  {tipo}
+                </span>
+              ))}
+            </div>
+
             <p className="build-card__pokemon">
-              Pokémon #{build.pokemon_id}
+              {build.pokemon_nombre}
             </p>
 
             <h2 className="build-card__title">
@@ -57,21 +117,14 @@ export default function BuildList() {
             <p className="build-card__role">
               {build.rol}
             </p>
-          </div>
 
-          <div className="build-card__content">
-            <p>
-              <strong>Objeto:</strong> {build.objeto}
-            </p>
+            <div className="build-card__item">
+              <span>Objeto</span>
 
-            <h3>Movimientos</h3>
-
-            <ul className="build-card__moves">
-              <li>{build.movimiento_1}</li>
-              <li>{build.movimiento_2}</li>
-              <li>{build.movimiento_3}</li>
-              <li>{build.movimiento_4}</li>
-            </ul>
+              <strong>
+                {build.objeto}
+              </strong>
+            </div>
 
             {build.descripcion && (
               <p className="build-card__description">
