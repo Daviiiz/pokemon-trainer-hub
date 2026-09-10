@@ -5,19 +5,19 @@ const SELECT_BUILDS = `
     builds.id,
     builds.pokemon_id,
     builds.titulo,
-    COALESCE(items.nombre, builds.objeto) AS objeto,
+    items.nombre AS objeto,
     builds.movimiento_1,
     builds.movimiento_2,
     builds.movimiento_3,
     builds.movimiento_4,
-    COALESCE(roles.nombre, builds.rol) AS rol,
+    roles.nombre AS rol,
     builds.descripcion,
     builds.item_id,
     builds.role_id
   FROM builds
-  LEFT JOIN items
+  JOIN items
     ON builds.item_id = items.id
-  LEFT JOIN roles
+  JOIN roles
     ON builds.role_id = roles.id
 `;
 
@@ -55,14 +55,12 @@ export async function crearBuildData(build) {
   const {
     pokemon_id,
     titulo,
-    objeto = null,
-    item_id = null,
+    item_id,
     movimiento_1,
     movimiento_2,
     movimiento_3,
     movimiento_4,
-    rol = null,
-    role_id = null,
+    role_id,
     descripcion,
   } = build;
 
@@ -70,26 +68,22 @@ export async function crearBuildData(build) {
     `INSERT INTO builds (
       pokemon_id,
       titulo,
-      objeto,
       item_id,
       movimiento_1,
       movimiento_2,
       movimiento_3,
       movimiento_4,
-      rol,
       role_id,
       descripcion
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [
       pokemon_id,
       titulo,
-      objeto,
       item_id,
       movimiento_1,
       movimiento_2,
       movimiento_3,
       movimiento_4,
-      rol,
       role_id,
       descripcion,
     ]
@@ -102,14 +96,12 @@ export async function actualizarBuildData(id, build) {
   const {
     pokemon_id,
     titulo,
-    objeto = null,
-    item_id = null,
+    item_id,
     movimiento_1,
     movimiento_2,
     movimiento_3,
     movimiento_4,
-    rol = null,
-    role_id = null,
+    role_id,
     descripcion,
   } = build;
 
@@ -117,26 +109,22 @@ export async function actualizarBuildData(id, build) {
     `UPDATE builds
      SET pokemon_id = ?,
          titulo = ?,
-         objeto = ?,
          item_id = ?,
          movimiento_1 = ?,
          movimiento_2 = ?,
          movimiento_3 = ?,
          movimiento_4 = ?,
-         rol = ?,
          role_id = ?,
          descripcion = ?
      WHERE id = ?`,
     [
       pokemon_id,
       titulo,
-      objeto,
       item_id,
       movimiento_1,
       movimiento_2,
       movimiento_3,
       movimiento_4,
-      rol,
       role_id,
       descripcion,
       id,

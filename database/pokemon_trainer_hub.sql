@@ -26,21 +26,19 @@ CREATE TABLE `builds` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `pokemon_id` int(11) NOT NULL,
   `titulo` varchar(100) NOT NULL,
-  `objeto` varchar(100) DEFAULT NULL,
   `movimiento_1` varchar(100) NOT NULL,
   `movimiento_2` varchar(100) NOT NULL,
   `movimiento_3` varchar(100) NOT NULL,
   `movimiento_4` varchar(100) NOT NULL,
-  `rol` varchar(100) DEFAULT NULL,
   `descripcion` text DEFAULT NULL,
-  `item_id` int(11) DEFAULT NULL,
-  `role_id` int(11) DEFAULT NULL,
+  `item_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_builds_item` (`item_id`),
   KEY `fk_builds_role` (`role_id`),
   CONSTRAINT `fk_builds_item` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`),
   CONSTRAINT `fk_builds_role` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,7 +47,7 @@ CREATE TABLE `builds` (
 
 LOCK TABLES `builds` WRITE;
 /*!40000 ALTER TABLE `builds` DISABLE KEYS */;
-INSERT INTO `builds` VALUES (1,25,'Special Attacker','Light Ball','Thunderbolt','Volt Switch','Grass Knot','Nasty Plot','Atacante especial','Build ofensiva centrada en aprovechar el ataque especial de Pikachu.',1,1),(2,6,'Physical Sweeper','Heavy-Duty Boots','Dragon Dance','Flare Blitz','Earthquake','Roost','Atacante físico','Build ofensiva para Charizard.',2,2);
+INSERT INTO `builds` VALUES (1,25,'Special Attacker','Thunderbolt','Volt Switch','Grass Knot','Nasty Plot','Build ofensiva centrada en aprovechar el ataque especial de Pikachu.',1,1),(2,6,'Physical Sweeper','Dragon Dance','Flare Blitz','Earthquake','Roost','Build ofensiva para Charizard.',2,2);
 /*!40000 ALTER TABLE `builds` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -136,4 +134,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-09-10 20:52:13
+-- Dump completed on 2026-09-10 21:40:24
