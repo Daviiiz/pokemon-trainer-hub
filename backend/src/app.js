@@ -1,7 +1,9 @@
 import express from "express";
 import cors from "cors";
+import roleRoutes from "./rutas/roleRoutes.js";
 import pokemonRoutes from "./rutas/pokemonRoutes.js";
 import buildRoutes from "./rutas/buildRoutes.js";
+import itemRoutes from "./rutas/itemRoutes.js";
 import { notFound } from "./middlewares/notFound.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 
@@ -25,6 +27,8 @@ app.get("/", (req, res) => {
 
 app.use("/pokemon", pokemonRoutes);
 app.use("/builds", buildRoutes);
+app.use("/items", itemRoutes);
+app.use("/roles", roleRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
