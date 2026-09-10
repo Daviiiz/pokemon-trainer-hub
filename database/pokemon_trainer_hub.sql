@@ -38,7 +38,7 @@ CREATE TABLE `builds` (
   KEY `fk_builds_role` (`role_id`),
   CONSTRAINT `fk_builds_item` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`),
   CONSTRAINT `fk_builds_role` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,7 +47,7 @@ CREATE TABLE `builds` (
 
 LOCK TABLES `builds` WRITE;
 /*!40000 ALTER TABLE `builds` DISABLE KEYS */;
-INSERT INTO `builds` VALUES (1,25,'Special Attacker','Thunderbolt','Volt Switch','Grass Knot','Nasty Plot','Build ofensiva centrada en aprovechar el ataque especial de Pikachu.',1,1),(2,6,'Physical Sweeper','Dragon Dance','Flare Blitz','Earthquake','Roost','Build ofensiva para Charizard.',2,2);
+INSERT INTO `builds` VALUES (1,25,'Special Attacker','Thunderbolt','Volt Switch','Grass Knot','Nasty Plot','Build ofensiva centrada en aprovechar el ataque especial de Pikachu.',1,1),(2,6,'Physical Sweeper','Dragon Dance','Flare Blitz','Earthquake','Roost','Build ofensiva para Charizard.',2,2),(6,94,'Special Sweeper','Shadow Ball','Sludge Bomb','Focus Blast','Destiny Bond','Build ofensiva especial para Gengar, centrada en ejercer presión y aprovechar su velocidad.',3,1),(7,445,'Swords Dance Sweeper','Swords Dance','Earthquake','Scale Shot','Fire Fang','Build física para Garchomp, diseñada para aumentar su ataque y barrer equipos tras encontrar una oportunidad de setup.',4,2),(8,149,'Dragon Dance Sweeper','Dragon Dance','Extreme Speed','Earthquake','Roost','Build física para Dragonite, centrada en mejorar ataque y velocidad para ejercer presión en el tramo final del combate.',2,2),(9,658,'Choice Specs Attacker','Hydro Pump','Dark Pulse','Ice Beam','U-turn','Build ofensiva especial para Greninja, orientada a golpear con fuerza inmediata y mantener presión sobre el rival.',5,1),(10,748,'Defensive Wall','Recover','Scald','Haze','Toxic Spikes','Build defensiva para Toxapex, centrada en aguantar golpes, recuperar salud y controlar el ritmo del combate.',6,3),(11,823,'Defensive Pivot','Roost','U-turn','Body Press','Defog','Build defensiva para Corviknight, pensada para absorber daño, recuperar salud y facilitar cambios seguros durante el combate.',6,4);
 /*!40000 ALTER TABLE `builds` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,7 +63,7 @@ CREATE TABLE `items` (
   `nombre` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nombre` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,7 +72,7 @@ CREATE TABLE `items` (
 
 LOCK TABLES `items` WRITE;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
-INSERT INTO `items` VALUES (2,'Heavy-Duty Boots'),(1,'Light Ball');
+INSERT INTO `items` VALUES (5,'Choice Specs'),(3,'Focus Sash'),(2,'Heavy-Duty Boots'),(6,'Leftovers'),(4,'Life Orb'),(1,'Light Ball');
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -112,7 +112,7 @@ CREATE TABLE `roles` (
   `nombre` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nombre` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -121,7 +121,7 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'Atacante especial'),(2,'Atacante físico');
+INSERT INTO `roles` VALUES (1,'Atacante especial'),(2,'Atacante físico'),(3,'Muro defensivo'),(4,'Pivot defensivo');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -134,4 +134,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-09-10 21:40:24
+-- Dump completed on 2026-09-10 21:49:17
