@@ -11,9 +11,12 @@ export async function obtenerBuilds(req, res) {
     ? Number(req.query.pokemon_id)
     : null;
 
-  if (req.query.pokemon_id && Number.isNaN(pokemonId)) {
+  if (
+    req.query.pokemon_id &&
+    (!Number.isInteger(pokemonId) || pokemonId <= 0)
+  ) {
     return res.status(400).json({
-      mensaje: "pokemon_id debe ser un número.",
+      mensaje: "pokemon_id debe ser un número entero positivo.",
     });
   }
 
@@ -24,6 +27,12 @@ export async function obtenerBuilds(req, res) {
 
 export async function obtenerBuildPorId(req, res) {
   const id = Number(req.params.id);
+
+  if (!Number.isInteger(id) || id <= 0) {
+    return res.status(400).json({
+      mensaje: "El id de la Build debe ser un número entero positivo.",
+    });
+  }
 
   const build = await obtenerBuildPorIdData(id);
 
@@ -40,111 +49,161 @@ export async function crearBuild(req, res) {
   const {
     pokemon_id,
     titulo,
-    objeto,
+    item_id,
     movimiento_1,
     movimiento_2,
     movimiento_3,
     movimiento_4,
-    rol,
+    role_id,
     descripcion,
   } = req.body;
 
+  const pokemonId = Number(pokemon_id);
+  const itemId = Number(item_id);
+  const roleId = Number(role_id);
+
   if (
-    !pokemon_id ||
     !titulo ||
-    !objeto ||
     !movimiento_1 ||
     !movimiento_2 ||
     !movimiento_3 ||
-    !movimiento_4 ||
-    !rol
+    !movimiento_4
   ) {
     return res.status(400).json({
-      mensaje: "Faltan campos obligatorios para crear la build.",
+      mensaje: "Faltan campos obligatorios para crear la Build.",
+    });
+  }
+
+  if (!Number.isInteger(pokemonId) || pokemonId <= 0) {
+    return res.status(400).json({
+      mensaje: "pokemon_id debe ser un número entero positivo.",
+    });
+  }
+
+  if (!Number.isInteger(itemId) || itemId <= 0) {
+    return res.status(400).json({
+      mensaje: "item_id debe ser un número entero positivo.",
+    });
+  }
+
+  if (!Number.isInteger(roleId) || roleId <= 0) {
+    return res.status(400).json({
+      mensaje: "role_id debe ser un número entero positivo.",
     });
   }
 
   const nuevaBuild = {
-    pokemon_id,
+    pokemon_id: pokemonId,
     titulo,
-    objeto,
+    item_id: itemId,
     movimiento_1,
     movimiento_2,
     movimiento_3,
     movimiento_4,
-    rol,
+    role_id: roleId,
     descripcion: descripcion || null,
   };
 
   const id = await crearBuildData(nuevaBuild);
 
-  res.status(201).json({
-    id,
-    ...nuevaBuild,
-  });
+  const buildCreada = await obtenerBuildPorIdData(id);
+
+  res.status(201).json(buildCreada);
 }
 
 export async function actualizarBuild(req, res) {
   const id = Number(req.params.id);
 
-  const {
-    pokemon_id,
-    titulo,
-    objeto,
-    movimiento_1,
-    movimiento_2,
-    movimiento_3,
-    movimiento_4,
-    rol,
-    descripcion,
-  } = req.body;
-
-  if (
-    !pokemon_id ||
-    !titulo ||
-    !objeto ||
-    !movimiento_1 ||
-    !movimiento_2 ||
-    !movimiento_3 ||
-    !movimiento_4 ||
-    !rol
-  ) {
+  if (!Number.isInteger(id) || id <= 0) {
     return res.status(400).json({
-      mensaje: "Faltan campos obligatorios para actualizar la build.",
+      mensaje: "El id de la Build debe ser un número entero positivo.",
     });
   }
 
-  const buildActualizada = {
-    pokemon_id,
-    titulo,
-    objeto,
-    movimiento_1,
-    movimiento_2,
-    movimiento_3,
-    movimiento_4,
-    rol,
-    descripcion: descripcion || null,
-  };
+  const buildExistente = await obtenerBuildPorIdData(id);
 
-  const filasActualizadas = await actualizarBuildData(
-    id,
-    buildActualizada
-  );
-
-  if (filasActualizadas === 0) {
+  if (!buildExistente) {
     return res.status(404).json({
       mensaje: "Build no encontrada.",
     });
   }
 
-  res.json({
+  const {
+    pokemon_id,
+    titulo,
+    item_id,
+    movimiento_1,
+    movimiento_2,
+    movimiento_3,
+    movimiento_4,
+    role_id,
+    descripcion,
+  } = req.body;
+
+  const pokemonId = Number(pokemon_id);
+  const itemId = Number(item_id);
+  const roleId = Number(role_id);
+
+  if (
+    !titulo ||
+    !movimiento_1 ||
+    !movimiento_2 ||
+    !movimiento_3 ||
+    !movimiento_4
+  ) {
+    return res.status(400).json({
+      mensaje: "Faltan campos obligatorios para actualizar la Build.",
+    });
+  }
+
+  if (!Number.isInteger(pokemonId) || pokemonId <= 0) {
+    return res.status(400).json({
+      mensaje: "pokemon_id debe ser un número entero positivo.",
+    });
+  }
+
+  if (!Number.isInteger(itemId) || itemId <= 0) {
+    return res.status(400).json({
+      mensaje: "item_id debe ser un número entero positivo.",
+    });
+  }
+
+  if (!Number.isInteger(roleId) || roleId <= 0) {
+    return res.status(400).json({
+      mensaje: "role_id debe ser un número entero positivo.",
+    });
+  }
+
+  const buildActualizada = {
+    pokemon_id: pokemonId,
+    titulo,
+    item_id: itemId,
+    movimiento_1,
+    movimiento_2,
+    movimiento_3,
+    movimiento_4,
+    role_id: roleId,
+    descripcion: descripcion || null,
+  };
+
+  await actualizarBuildData(
     id,
-    ...buildActualizada,
-  });
+    buildActualizada
+  );
+
+  const buildFinal = await obtenerBuildPorIdData(id);
+
+  res.json(buildFinal);
 }
 
 export async function eliminarBuild(req, res) {
   const id = Number(req.params.id);
+
+  if (!Number.isInteger(id) || id <= 0) {
+    return res.status(400).json({
+      mensaje: "El id de la Build debe ser un número entero positivo.",
+    });
+  }
 
   const filasEliminadas = await eliminarBuildData(id);
 
