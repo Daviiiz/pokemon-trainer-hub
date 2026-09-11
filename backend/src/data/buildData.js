@@ -26,7 +26,7 @@ export async function obtenerTodasBuilds(pokemonId = null) {
     const [filas] = await db.execute(
       `${SELECT_BUILDS}
        WHERE builds.pokemon_id = ?
-       ORDER BY builds.id`,
+       ORDER BY builds.pokemon_id ASC, builds.id ASC`,
       [pokemonId]
     );
 
@@ -35,7 +35,7 @@ export async function obtenerTodasBuilds(pokemonId = null) {
 
   const [filas] = await db.query(
     `${SELECT_BUILDS}
-     ORDER BY builds.id`
+     ORDER BY builds.pokemon_id ASC, builds.id ASC`
   );
 
   return filas;
