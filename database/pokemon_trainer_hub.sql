@@ -77,30 +77,6 @@ INSERT INTO `items` VALUES (5,'Choice Specs'),(7,'Eviolite'),(3,'Focus Sash'),(2
 UNLOCK TABLES;
 
 --
--- Table structure for table `pokemon`
---
-
-DROP TABLE IF EXISTS `pokemon`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `pokemon` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `pokemon`
---
-
-LOCK TABLES `pokemon` WRITE;
-/*!40000 ALTER TABLE `pokemon` DISABLE KEYS */;
-INSERT INTO `pokemon` VALUES (1,'Bulbasaur'),(4,'Charmander'),(7,'Squirtle'),(25,'Pikachu');
-/*!40000 ALTER TABLE `pokemon` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `roles`
 --
 
@@ -134,4 +110,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-09-11 21:15:49
+-- Dump completed on 2026-09-14 16:14:18
