@@ -4,6 +4,20 @@ Proyecto final de Desarrollo Web Full Stack creado como una aplicación web para
 
 La aplicación combina PokéAPI como fuente externa de datos con una API REST propia desarrollada con Node.js, Express y MySQL.
 
+## Problema, público y solución
+
+### Problema
+
+La información general de Pokémon y las estrategias competitivas suelen encontrarse separadas en diferentes fuentes, dificultando una consulta rápida y centralizada.
+
+### Público
+
+Pokémon Trainer Hub está dirigido a personas interesadas en consultar información de Pokémon y descubrir estrategias o builds competitivas de forma sencilla.
+
+### Solución
+
+La aplicación combina PokéAPI como catálogo externo con una API REST y una base de datos propias para mostrar información de Pokémon junto con builds competitivas, objetos, roles y movimientos relacionados.
+
 ## Demo
 
 **Frontend:**
@@ -395,8 +409,19 @@ Incluye:
 
 ---
 
-## Autor
+## Autor y responsabilidades
 
-David
+**David Chico Martin**
 
-Proyecto final de Desarrollo Web Full Stack.
+Proyecto desarrollado individualmente como trabajo final de Desarrollo Web Full Stack.
+
+Responsabilidades:
+
+- Diseño y estructura del frontend.
+- Desarrollo con Astro, React, HTML, CSS y JavaScript.
+- Integración con PokéAPI.
+- Desarrollo de la API REST con Node.js y Express.
+- Diseño y gestión de la base de datos MySQL.
+- Integración entre frontend, backend y base de datos.
+- Despliegue en Netlify, Render y Clever Cloud.
+- Documentación y pruebas del proyecto.
