@@ -178,17 +178,19 @@ PUT /builds/:id
 DELETE /builds/:id
 ```
 
+```md
 ### Items
 
 ```http
 GET /items
-```
+GET /items/:id
 
+```md
 ### Roles
 
 ```http
 GET /roles
-```
+GET /roles/:id
 
 Las operaciones de escritura del CRUD están protegidas mediante una API Key enviada en la cabecera:
 
@@ -197,6 +199,10 @@ x-api-key
 ```
 
 La clave no se almacena en el repositorio y se configura mediante variables de entorno.
+La documentación completa de la API está disponible en:
+
+```text
+docs/API.md
 
 ---
 
