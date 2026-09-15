@@ -84,6 +84,8 @@ Ejemplo:
 
 La clave real no debe almacenarse en el repositorio.
 
+**API key de demostración:** las rutas de escritura requieren una clave de prueba mediante la cabecera `x-api-key`. Por seguridad, su valor no se publica en el repositorio y se facilita de forma privada junto con la entrega del proyecto.
+
 ---
 
 # 5. Recurso Builds
